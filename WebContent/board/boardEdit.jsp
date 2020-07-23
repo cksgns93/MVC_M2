@@ -4,30 +4,36 @@
 <%@ page import="com.oreilly.*, com.oreilly.servlet.*"%>
 <jsp:include page="/top.jsp"/>
 <div class="text-left p-5">
-	<h1 class="text-center">MVC Board</h1>
+	<h1 class="text-center">MVC Board Edit</h1>
 	<p class="text-center">
 		<a href="write.do">글쓰기</a>|
 		<a href="list.do">글목록</a>
 	</p>
-	<!-- 파일업로드, 메소드는 post, enctype은 multipart/form-data를 주어야 데이터가 서버에 함께 전송-->
-	<form name="bf" id="bf" action="writeEnd.do" method="post" enctype="multipart/form-data">
+	<!-- 파일업로드, 메소드는 post, enctype은 multipart/form-data를 주어야 데이터가 서버에 함께 전송 -->
+	<form name="bf" id="bf" action="editEnd.do" method="post" enctype="multipart/form-data">
 		<table class="table table-bordered">
+			<tr>
+				<th style="width:20%">글번호</th>
+				<td style="width:80%">
+					<input type="text" name="idx" id="idx" placeholder="Idx" value="${board.idx}" readonly class="form-control">
+				</td>
+			</tr>
 			<tr>
 				<th style="width:20%">제목</th>
 				<td style="width:80%">
-					<input type="text" name="subject" id="subject" placeholder="Subject" class="form-control">
+					<input type="text" name="subject" id="subject" placeholder="Subject" value="${board.subject}" class="form-control">
 				</td>
 			</tr>
 			<tr>
 				<th style="width:20%">글쓴이</th>
 				<td style="width:80%">
-					<input type="text" name="name" id="name" placeholder="name" class="form-control">
+					<input type="text" name="name" id="name" value="${board.name}" placeholder="name" class="form-control">
 				</td>
 			</tr>
 			<tr>
 				<th style="width:20%">글내용</th>
 				<td style="width:80%">
-					<textarea rows="10" cols="50" name="content" id="content" placeholder="Content" class="form-control"></textarea>
+					<textarea rows="10" cols="50" name="content" id="content" placeholder="Content" class="form-control">${board.content}</textarea>
 				</td>
 			</tr>
 			<tr>
@@ -39,12 +45,14 @@
 			<tr>
 				<th style="width:20%">첨부파일</th>
 				<td style="width:80%">
+					${board.originFilename} [${board.filesize} bytes]<br>
+					<input type="hidden" name="old_filename" value="${board.filename}">
 					<input type="file" name="filename" id="filename" placeholder="Attatch File" class="form-control">
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2" class="text-center">
-					<button class="btn btn-success" id="btnWrite">글쓰기</button>
+					<button class="btn btn-success" id="btnWrite">글수정</button>
 					<button type="reset" class="btn btn-warning" id="btnReset">다시쓰기</button>
 				</td>
 			</tr>	

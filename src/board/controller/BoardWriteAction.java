@@ -18,7 +18,6 @@ public class BoardWriteAction extends AbstractAction {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		req.setCharacterEncoding("UTF-8");//=>한글 처리 필터로 대체
 		//0.파일 업로드 처리하기
 		//1) 업로드할 디렉토리 절대경로 얻기 ==> application.getRealPath("Upload");
 		ServletContext application = req.getServletContext();
