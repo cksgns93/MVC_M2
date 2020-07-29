@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <% 
 	String myctx =request.getContextPath();
 %>
@@ -7,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MyHome</title>
+<title>MVCWeb</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -22,7 +23,7 @@
 <div class="container">
 	<div class="jumbotron text-center" style="margin-bottom:0">
 		<h1>MyHome Page</h1>
-		<p>Welcome to MyHome Page</p>
+		<p>Welcome to MyHome Page <!-- ${sessionScope.loginUser.name} --></p>
 	</div>
 	<!-- navbar -->
 	<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
@@ -31,17 +32,21 @@
 	      <a class="nav-link" href="<%=myctx %>/index.do">Home</a>
 	    </li>
 	    <li class="nav-item">
-	      <a class="nav-link" href="<%=myctx %>/member/signup.jsp">SignUp</a>
+	      <a class="nav-link" href="<%=myctx %>/signup.do">SignUp</a>
+	    </li>
+	    <c:if test="${loginUser eq null}"><!-- eq연산자 : (equals) == 와 같다. -->
+	    <li class="nav-item">
+	      <a class="nav-link" href="<%=myctx %>/signin.do">SignIn</a>
+	    </li>
+	    </c:if>
+	    <c:if test="${loginUser ne null}"><!-- ne연산자 : (not eqauls) != 와 같다 -->
+	    <li class="nav-item bg-danger">
+	      <a class="nav-link" href="#">${loginUser.userid}님 로그인 중</a>
 	    </li>
 	    <li class="nav-item">
-	      <a class="nav-link" href="<%=myctx %>/login/signin.jsp">SignIn</a>
+	      <a class="nav-link" href="<%=myctx %>/logout.do">Logout</a>
 	    </li>
-	    <li class="nav-item bg-primary">
-	      <a class="nav-link" href="#">님 로그인 중</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link" href="<%=myctx %>/login/logout.jsp">Logout</a>
-	    </li>
+	    </c:if>
 	    <li class="nav-item">
 	      <a class="nav-link" href="<%=myctx %>/board/write.do">Board Write</a>
 	    </li>
@@ -55,18 +60,9 @@
 		<div class="row" style="height:auto;">
 			<div class="col-md-3">
 				<ul class="list-group">
-					<li class="list-group-item"><a href="<%=myctx %>/example/form.jsp">입력폼</a></li>
-					<li class="list-group-item"><a href="<%=myctx %>/example/form2.jsp">입력폼2</a></li>
+					<li class="list-group-item"><a href="<%=myctx %>/admin/member.do">Users[admin]</a></li>
+					<li class="list-group-item"><a href="<%=myctx %>/user/myPage.do">MyPage</a></li>
 					<li class="list-group-item"><a href="<%=myctx %>/example/form3.jsp">입력폼3</a></li>
-					<li class="list-group-item"><a href="<%=myctx %>/beans/input.jsp">Beans(page,session,application)</a></li>
-					<li class="list-group-item"><a href="<%=myctx %>/beans/input.jsp">Beans(request)</a></li>
-					<li class="list-group-item"><a href="<%=myctx %>/login/sessionTest.jsp">Session테스트</a></li>
-					<li class="list-group-item"><a href="<%=myctx %>/login/memberTest.jsp">회원 인증 페이지</a></li>
-					<li class="list-group-item"><a href="/MyWeb/cookie/cookieTest.jsp">cookie테스트</a></li>
-					<li class="list-group-item"><a href="/MyWeb/login/adminCheckModule.jsp">관리자테스트</a></li>
-					<li class="list-group-item"><a href="/MyWeb/file/upload.jsp">파일업로드1</a></li>
-					<li class="list-group-item"><a href="/MyWeb/file/upload2.jsp">파일업로드2</a></li>
-					<li class="list-group-item"><a href="/MyWeb/file/fileList.jsp">파일업로드목록</a></li>
 				</ul>
 			</div>
 			<div class="col-md-9">

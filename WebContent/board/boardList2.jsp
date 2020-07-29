@@ -12,8 +12,8 @@
 	<p>
 	<!-- pageSize관련 form 시작 -->
 	<div class="row">
-	<div class="col-md-3 offset-md-8 p-3 m-3">
-	<form name="listF" id="listF" action="list.do#bbs">
+	<div class="col-md-3 ">
+	<form name="listF" id="listF" action="list.do#bbs" class="m-2">
 		<input type="hidden" name="cpage" value="${cpage}">
 		<select name="pageSize" class="form-control " onchange="submit()">
 			<option value="5">::페이지 사이즈 선택::</option>
@@ -22,8 +22,20 @@
 			</c:forEach>
 		</select>
 	</form>
+	</div><!-- col end -->
+	<div class="col-md-9">
+		<form name="findF" id="findF" action="find.do#bbs" class="form-inline">
+			<select name="findType" id="findType" class="form-control m-2">
+				<option value="0">::검색유형::</option>
+				<option value="1">제   목</option>
+				<option value="2">작성자</option>
+				<option value="3">글내용</option>
+			</select>
+			<input type="text" name="findKeyword" id="findKeyword" placeholder="검색어를 입력하세요" class="form-control m-2" required>
+			<button class="btn btn-primary">검색</button>
+		</form>
 	</div>
-	</div>
+	</div><!-- row end -->
 	<!-- ------------------- -->
 	</p>
 	<table id="bbs" class="table table-striped table-hover">
@@ -66,15 +78,26 @@
 			<td colspan="3" class="text-center">
 			<!-- begin:시작 end:끝 step:증가치 -->
 			<ul class="pagination justify-content-center">
-			<c:forEach var="i" begin="1" end="${pageCount}" step="1">
+			<c:if test="${prevBlock>0}"> <!-- 이전 5개 -->
+			<li class="page-item"><a class="page-link" href="list.do?cpage=${prevBlock}#bbs">이전${pagingBlock}개</a></li>
+			</c:if>
+			
+			<c:forEach var="i" begin="${prevBlock+1}" end="${nextBlock-1}" step="1">
+			<c:if test="${i<=pageCount}">
 			<li class="page-item <c:if test="${cpage==i}">active</c:if>"><a class="page-link" href="list.do?cpage=${i}#bbs">${i}</a></li>
+			</c:if>
 			</c:forEach>
+			
+			<c:if test="${nextBlock<=pageCount}"> <!-- 이후 5개 -->
+			<li class="page-item"><a class="page-link" href="list.do?cpage=${nextBlock}#bbs">이후${pagingBlock}개</a></li>
+			</c:if>
+			
 			</ul>
 			</td>
 			<td colspan="2" class="text-center">총게시글수: 
 			<span class="text-primary">${totalCount}</span>
 			<br>
-			<span>현재페이지</span>/<span>총페이지수</span>
+			<span class="text-danger">${cpage}</span>/<span>${pageCount}</span>
 			</td>
 		</tr>
 	</table>
