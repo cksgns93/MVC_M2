@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="common.mapper.ProductMapper">
+	<!-- pspec별로 상품정보 가져오기 -->
+	<select id="selectByPspec" parameterType="string" resultType="Product">
+		select * from product where pspec=#{value} order by pnum desc
+	</select>
+	<!-- 상위 카테고리 목록 가져오기 -->
+	<select id="getUpCategoryList" resultType="Category">
+		select * from upCategory order by upCg_code asc
+	</select>
+</mapper>
