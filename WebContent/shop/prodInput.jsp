@@ -7,9 +7,83 @@
 
 <script>
 	function selectDCate(upCode){
-		alert(upCode);
+		//alert(upCode);
 		//ajax로 상위 항목을 가져오자
+		$.ajax({
+			type:'get',
+			url:'downCate.do?upCode='+upCode,
+			dataType:'json',
+			cache:false,
+			success:function(res){
+				//alert(JSON.stringify(res));
+				var str="<select id='downCg_code' name='downCg_code'>";
+				str+="<option value=''>::하위 카테고리::</option>";
+				$.each(res,function(i,item){
+					str+="<option value='"+item.downCg_code+"'>";
+					str+=item.downCg_name;
+					str+="</option>";
+				})
+				str+="</select>";
+				$('#selectDcg').html(str);
+			},error:function(err){
+				alert("error:"+err.status);
+			}
+		})
 	}
+	
+	$(function(){
+		$('#prodF').on('submit',function(){
+			//상위 카테고리코드, 하위 카테고리 코드
+			if(!$("#upCg_code").val()){
+				alert('상위 카테고리 선택하세요');
+				$("#upCg_code").focus();
+				return false;
+			}
+			if(!$("#downCg_code").val()){
+				alert('하위 카테고리 선택하세요');
+				$("#downCg_code").focus();
+				return false;
+			}
+			//상품명
+			if(!$('#pname').val()){
+				alert('상품명을 입력');
+				$('#pname').focus();
+				return false;
+			}
+			//가격, 판매가,포인트 숫자 여부
+			//숫자 여부를 하면 빈문자까지 확인 가능
+			
+			if(!($('#price').val())){
+				alert('정가를 입력');
+				$('#price').focus();
+				return false;
+			}
+			if(isNaN($('#price').val())){
+				alert('정가는 숫자여야 합니다.');
+				$('#price').select();
+				return false;
+			}	
+			if(!($('#saleprice').val())){
+				alert('판매가를 입력');
+				$('#saleprice').focus();
+				return false;
+			}
+			if(isNaN($('#saleprice').val())){
+				alert('판매가는 숫자여야 합니다.');
+				$('#saleprice').select();
+				return false;
+			}
+			
+			
+			
+			
+			
+			
+			
+		})
+	})
+	
+	
 </script>
 
 <div class="container">
@@ -31,7 +105,7 @@
 					<tbody>
 						<tr>
 							<td width="20%"><b>카테고리</b></td>
-							<td width="80%"><select name="upCg_Code"
+							<td width="80%"><select id="upCg_code" name="upCg_code"
 								onchange="selectDCate(this.value)">
 									<option value="">::상위 카테고리::</option>
 									<c:forEach var="up" items="${upCgList}">
@@ -66,9 +140,9 @@
 						<tr>
 							<td>상품이미지</td>
 							<td>
-							<input type="file" name="pimage"><br> 
-							<input type="file" name="pimage"><br> 
-							<input type="file" name="pimage"><br>
+							<input type="file" name="pimage1"><br> 
+							<input type="file" name="pimage2"><br> 
+							<input type="file" name="pimage3"><br>
 						</td>
 						</tr>
 
@@ -83,7 +157,7 @@
 						<tr>
 							<td width="20%"><b>상품정가</b></td>
 							<td width="80%">
-							<input type="text" name="price" id="price">
+							<input type="number" name="price" id="price">
 		
 								원
 							<span style="color: red"> 

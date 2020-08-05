@@ -6,8 +6,12 @@ import java.sql.Date;
 public class ProductVO implements Serializable {
 
 	private String pnum;
+	
 	private String upCg_code;
+	private String upCg_name;
+	
 	private String downCg_code;
+	private String downCg_name;
 	private String pname;
 	private String pimage1;
 	private String pimage2;
@@ -16,7 +20,7 @@ public class ProductVO implements Serializable {
 	private int saleprice;
 	private int pqty;
 	private int point;
-	private String pspe;
+	private String pspec;
 	private String pcontents;
 	private String pcompany;
 	private Date pindate;
@@ -29,7 +33,7 @@ public class ProductVO implements Serializable {
 	}
 
 	public ProductVO(String pnum, String upCg_code, String downCg_code, String pname, String pimage1, String pimage2,
-			String pimage3, int price, int saleprice, int pqty, int point, String pspe, String pcontents,
+			String pimage3, int price, int saleprice, int pqty, int point, String pspec, String pcontents,
 			String pcompany, Date pindate) {
 		super();
 		this.pnum = pnum;
@@ -43,7 +47,7 @@ public class ProductVO implements Serializable {
 		this.saleprice = saleprice;
 		this.pqty = pqty;
 		this.point = point;
-		this.pspe = pspe;
+		this.pspec = pspec;
 		this.pcontents = pcontents;
 		this.pcompany = pcompany;
 		this.pindate = pindate;
@@ -139,12 +143,12 @@ public class ProductVO implements Serializable {
 		this.point = point;
 	}
 
-	public String getPspe() {
-		return pspe;
+	public String getPspec() {
+		return pspec;
 	}
 
-	public void setPspe(String pspe) {
-		this.pspe = pspe;
+	public void setPspec(String pspec) {
+		this.pspec = pspec;
 	}
 
 	public String getPcontents() {
@@ -184,5 +188,25 @@ public class ProductVO implements Serializable {
 		// (정가-판매가)/정가
 		int per=(this.price-this.saleprice)*100/this.price;
 		return per;
+	}
+
+	public String getUpCg_name() {
+		return upCg_name;
+	}
+
+	public void setUpCg_name(String upCg_name) {
+		this.upCg_name = upCg_name;
+	}
+
+	public String getDownCg_name() {
+		return downCg_name;
+	}
+
+	public void setDownCg_name(String downCg_name) {
+		this.downCg_name = downCg_name;
+	}
+	
+	public String getAllCategory() {
+		return upCg_name+">>"+downCg_name;
 	}
 }

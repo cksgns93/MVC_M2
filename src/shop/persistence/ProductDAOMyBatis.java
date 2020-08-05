@@ -33,6 +33,69 @@ public class ProductDAOMyBatis extends DAOMyBatisBase{
 		}
 	}
 
+	public List<CategoryVO> getDownCategoryList(String upCode) {
+		try {
+			ses=this.getSqlSessionFactory().openSession();
+			List<CategoryVO> dList = ses.selectList(NS+".getDownCategoryList",upCode);
+			return dList;
+		}finally {
+			close(ses);
+		}
+	}
 
+	public int productInsert(ProductVO item) {
+		try {
+			ses=this.getSqlSessionFactory().openSession();
+			int n = ses.insert(NS+".productInsert",item);
+			if(n>0) { //트랜잭션 처리
+				ses.commit();
+			}else {
+				ses.rollback();
+			}
+			return n;
+		}finally {
+			close(ses);
+		}		
+	}
+
+	public List<ProductVO> getProductList() {
+		try {
+			ses=this.getSqlSessionFactory().openSession();
+			List<ProductVO> arr = ses.selectList(NS+".getProductList");
+			return arr;
+		}finally {
+			close(ses);
+		}
+	}
+
+	public int getProductCount() {
+		try {
+			ses=this.getSqlSessionFactory().openSession();
+			int n = ses.selectOne(NS+".getProductCount");
+			return n;
+		}finally {
+			close(ses);
+		}
+	}
+	/*상품 번호로 상품정보 가져오는 메소드*/
+	public ProductVO productInfo(String pnum) {
+		try {
+			ses=this.getSqlSessionFactory().openSession();
+			ProductVO vo = ses.selectOne(NS+".productInfo",Integer.parseInt(pnum));
+			return vo;
+		}finally {
+			close(ses);
+		}
+	}
 	
+	public int productDelete(String pnum) {
+		try {
+			ses=this.getSqlSessionFactory().openSession(true);
+			//true 넣으면 auto commit;
+			int n = ses.delete(NS+".productDelete",pnum);
+			return n;
+		}finally {
+			close(ses);
+		}
+	}
 }
