@@ -35,15 +35,26 @@ public class CartAddAction extends AbstractAction {
 		CartVO cvo = new CartVO(null,oqty_int,idx,pnum_int);
 		
 		CartDAOMyBatis dao = new CartDAOMyBatis();
-		int n = dao.addCart(cvo);
+		int n = 0;
+		//1. 해당 상품이 해당 회원의 장바구니에 이미 담겨있는지 체크
+		//이미 담긴상품이라면 => 수량만 추가
+		int count=dao.selectCartByPnum(cvo);
+		if(count>0) {
+			n=dao.updateCartOqty(cvo);
+		}else {
+			//2. 그렇지 않고 새로 담은 상품이라면 => cart테이블에 insert
+			n=dao.addCart(cvo);
+		}
+//		String msg = (n>0) ? "장바구니 담기 성공":"담기 실패";
+//		String loc = (n>0) ? "cart.do":"javascript:history.back()";
+//		
+//		String view = CommonUtil.addMsgLoc(req, msg, loc);
+		//String view="../shop/cartList.jsp";
 		
-		String msg = (n>0) ? "장바구니 담기 성공":"담기 실패";
-		String loc = (n>0) ? "cart.do":"javascript:history.back()";
 		
-		String view = CommonUtil.addMsgLoc(req, msg, loc);
-		
+		String view="cart.do";
 		this.setViewPage(view);
-		this.setRedirect(false);
+		this.setRedirect(true);
 		
 	}
 

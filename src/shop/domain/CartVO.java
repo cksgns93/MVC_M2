@@ -10,6 +10,20 @@ public class CartVO implements Serializable {
 	private int pnum;//상품번호
 	private java.sql.Date indate;
 	
+	private String pname; //상품명
+	
+	private String pimage1;
+	private int price;
+	private int saleprice;
+	private int point;
+	
+	private int totalPrice; //판매가*수량 =>금액
+	private int totalPoint;
+	
+	//장바구니 총액과 총포인트
+	private int cartTotalPrice;
+	private int cartTotalPoint;
+	
 	public CartVO() {
 		
 	}
@@ -20,6 +34,62 @@ public class CartVO implements Serializable {
 		this.oqty = oqty;
 		this.idx = idx;
 		this.pnum = pnum;
+	}
+
+	public String getPname() {
+		return pname;
+	}
+
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+
+	public String getPimage1() {
+		return pimage1;
+	}
+
+	public void setPimage1(String pimage1) {
+		this.pimage1 = pimage1;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public int getSaleprice() {
+		return saleprice;
+	}
+
+	public void setSaleprice(int saleprice) {
+		this.saleprice = saleprice;
+	}
+
+	public int getPoint() {
+		return point;
+	}
+
+	public void setPoint(int point) {
+		this.point = point;
+	}
+
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public int getTotalPoint() {
+		return totalPoint;
+	}
+
+	public void setTotalPoint(int totalPoint) {
+		this.totalPoint = totalPoint;
 	}
 
 	public String getCartNum() {
@@ -60,6 +130,22 @@ public class CartVO implements Serializable {
 
 	public void setIndate(java.sql.Date indate) {
 		this.indate = indate;
+	}
+	
+	public int getCartTotalPrice() {
+		return cartTotalPrice;
+	}
+
+	public void setCartTotalPrice(int cartTotalPrice) {
+		this.cartTotalPrice = cartTotalPrice;
+	}
+
+	public int getCartTotalPoint() {
+		return cartTotalPoint;
+	}
+
+	public void setCartTotalPoint(int cartTotalPoint) {
+		this.cartTotalPoint = cartTotalPoint;
 	}
 	
 }

@@ -59,7 +59,7 @@
 				<li class="nav-item"><a class="nav-link"
 					href="<%=myctx%>/admin/member.do">Users[admin]</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="<%=myctx%>/cart.do">cart</a></li>
+					href="<%=myctx%>/user/cart.do">cart</a></li>
 				<li class="nav-item"><a class="nav-link"
 					href="<%=myctx%>/pspec.do">pspec</a></li>
 				<li class="nav-item"><a class="nav-link"
