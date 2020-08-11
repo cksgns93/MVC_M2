@@ -21,6 +21,9 @@
 		update cart set oqty = oqty + #{oqty} where idx=#{idx} and pnum=#{pnum}
 	</update>
 	<select id="selectCartByIdx" parameterType="int" resultType="Cart">
+		select * from cartView where idx=#{idx} order by cartNum desc
+	</select>
+	<select id="selectCartByIdx_old" parameterType="int" resultType="Cart">
 		select cartnum, c.pnum, p.pname, p.pimage1, p.price, p.saleprice,
 		c.oqty, p.point, (saleprice*oqty) totalPrice, (point*oqty) totalPoint
 		from cart c join product p
@@ -28,6 +31,10 @@
 	</select>
 	<!-- 특정 회원의 장바구니 총액과 총포인트 가져오기 -->
 	<select id="getCartTotal" parameterType="int" resultType="Cart">
+		select sum(totalPrice) cartTotalPrice, sum(totalPoint) cartTotalPoint
+		from cartView where idx=#{idx}
+	</select>
+	<select id="getCartTotal_old" parameterType="int" resultType="Cart">
 		select sum(saleprice*oqty) cartTotalPrice, sum(point*oqty) cartTotalPoint 
 		from cart c join product p
 		on c.pnum=p.pnum where idx=#{idx}
